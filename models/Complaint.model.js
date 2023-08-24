@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const pollSchema = new Schema({
+const complaintSchema = new Schema({
     title: {
         type: String,
         required: true,
@@ -12,21 +12,22 @@ const pollSchema = new Schema({
         required: true,
         trim: true
     },
-    votesInFavor: [{
+    userId: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
-    }],
-    votesAgainst: [{
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    }],
+        ref: 'User',
+        required: true
+    },
     status: {
         type: String,
-        enum: ['Open', 'Closed'],
+        enum: ['Open', 'In Progress', 'Resolved'],
         default: 'Open'
-    }
+    },
+    comments: [{
+        type: String,
+        trim: true
+    }]
 }, {
     timestamps: true
 });
 
-module.exports = mongoose.model('Poll', pollSchema);
+module.exports = mongoose.model('Complaint', complaintSchema);
