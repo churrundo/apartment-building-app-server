@@ -13,7 +13,7 @@ router.use('/announcements', announcementRoutes);
 const pollRoutes = require('./polls.routes');
 router.use('/polls', pollRoutes);
 
-const directoryRoutes = require('./directory.routes');
+const directoryRoutes = require('./details.routes');
 router.use('/directory', directoryRoutes);
 
 const complaintsRoutes = require('./complaints.routes');
