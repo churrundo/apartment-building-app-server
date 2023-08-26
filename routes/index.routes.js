@@ -1,9 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const authRoutes = require('./auth.routes');
-router.use('/auth', authRoutes);
-
 const userRoutes = require('./users.routes');
 router.use('/users', userRoutes);
 
@@ -18,9 +15,5 @@ router.use('/details', detailsRoutes);
 
 const complaintsRoutes = require('./complaints.routes');
 router.use('/complaints', complaintsRoutes);
-
-router.get("/", (req, res, next) => {
-  res.json("All good in here");
-});
 
 module.exports = router;
