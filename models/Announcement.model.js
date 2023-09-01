@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 const User = require('./user.model');
 
 const announcementSchema = new Schema({
+    title: {
+        type: String,
+        required: true,
+        trim: true,
+    },
     message: {
         type: String,
         required: true,
