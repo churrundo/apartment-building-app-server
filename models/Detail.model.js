@@ -4,9 +4,8 @@ const Schema = mongoose.Schema;
 const detailsSchema = new Schema({
     fullName: String,
     apartmentNumber: String,
-    profilePicture: String, //Future iteration, implement Cloudinary image upload
+    profilePicture: String,
     contactNumber: String,
-    email: String,
     occupation: String,
     shortBio: String,
     moveInDate: Date,

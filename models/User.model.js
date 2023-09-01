@@ -35,7 +35,40 @@ const userSchema = new Schema({
     announcements: [{
         type: Schema.Types.ObjectId,
         ref: 'Announcement'
-    }]
+    }],
+    details: {
+        makeAvailable: Boolean,
+        apartmentNumber: String,
+        profilePicture: String, // Future iteration, implement Cloudinary image upload
+        contactNumber: String,
+        occupation: String,
+        shortBio: String,
+        moveInDate: Date,
+        emergencyContact: {
+            name: String,
+            phone: String
+        },
+        pets: [{
+            type: String,
+            name: String
+        }],
+        vehicleDetails: {
+            type: String,
+            make: String,
+            model: String,
+            color: String,
+            licensePlate: String
+        },
+        specialSkills: [String],
+        socialMediaLinks: {
+            instagram: String,
+            facebook: String,
+            twitter: String,
+            linkedin: String,
+            other: String,
+        },
+        languagesSpoken: [String]
+    }
 }, {
     timestamps: true
 });

@@ -1,25 +1,67 @@
 const express = require("express");
 const router = express.Router();
+const User = require("../models/User.model")
 
-
-router.get("/", (req, res, next) => {
-    res.json("Retrieve all users");
+router.get("/", async(req, res, next) => {
+  try {
+    const users = await User.find({});
+    res.json(users);
+} catch (error) {
+    console.error("Error retrieving all users", error);
+    res.status(500).json({ error: 'Internal Server Error' });
+}
   });
   
-  router.get("/:id", (req, res, next) => {
-    res.json(`Retrieve details for user with ID: ${req.params.id}`);
+  router.get("/:id", async (req, res, next) => {
+    const userId = req.params.id;
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error(`Error retrieving details for user with ID: ${userId}`, error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
   });
   
-  router.post("/", (req, res, next) => {
-    res.json("Create a new user");
+  router.post("/", async (req, res, next) => {
+    try {
+      const user = new User(req.body);
+      await user.save();
+      res.status(201).json(user);
+  } catch (error) {
+      console.error("Error creating a new user", error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
   });
   
-  router.put("/:id", (req, res, next) => {
-    res.json(`Update user with ID: ${req.params.id}`);
+  router.put("/:id", async (req, res, next) => {
+    const userId = req.params.id;
+    try {
+        const user = await User.findByIdAndUpdate(userId, req.body, { new: true });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error(`Error updating user with ID: ${userId}`, error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
   });
   
-  router.delete("/:id", (req, res, next) => {
-    res.json(`Delete user with ID: ${req.params.id}`);
+  router.delete("/:id", async (req, res, next) => {    const userId = req.params.id;
+    try {
+        const user = await User.findByIdAndDelete(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json({ message: 'User deleted successfully' });
+    } catch (error) {
+        console.error(`Error deleting user with ID: ${userId}`, error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
   });
 
 module.exports = router;
