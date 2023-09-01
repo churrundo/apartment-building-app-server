@@ -37,40 +37,110 @@ const userSchema = new Schema({
         ref: 'Announcement'
     }],
     details: {
-        makeAvailable: Boolean,
-        apartmentNumber: String,
-        profilePicture: String, // Future iteration, implement Cloudinary image upload
-        contactNumber: String,
-        occupation: String,
-        shortBio: String,
-        moveInDate: Date,
+        makeAvailable: {
+            type: Boolean,
+            default: false
+        },
+        apartmentNumber: {
+            type: String,
+            default: ''
+        },
+        profilePicture: {
+            type: String,
+            default: ''
+        }, // Future iteration, implement Cloudinary image upload
+        contactNumber: {
+            type: String,
+            default: ''
+        },
+        occupation: {
+            type: String,
+            default: ''
+        },
+        shortBio: {
+            type: String,
+            default: ''
+        },
+        moveInDate: {
+            type: Date,
+            default: Date.now
+        },
         emergencyContact: {
-            name: String,
-            phone: String
+            name: {
+                type: String,
+                default: ''
+            },
+            phone: {
+                type: String,
+                default: ''
+            }
         },
         pets: [{
-            type: String,
-            name: String
+            type: {
+                type: String,
+                default: ''
+            },
+            name: {
+                type: String,
+                default: ''
+            }
         }],
         vehicleDetails: {
-            type: String,
-            make: String,
-            model: String,
-            color: String,
-            licensePlate: String
+            type: {
+                type: String,
+                default: ''
+            },
+            make: {
+                type: String,
+                default: ''
+            },
+            model: {
+                type: String,
+                default: ''
+            },
+            color: {
+                type: String,
+                default: ''
+            },
+            licensePlate: {
+                type: String,
+                default: ''
+            }
         },
-        specialSkills: [String],
+        specialSkills: {
+            type: [String],
+            default: undefined
+        },
         socialMediaLinks: {
-            instagram: String,
-            facebook: String,
-            twitter: String,
-            linkedin: String,
-            other: String,
+            instagram: {
+                type: String,
+                default: ''
+            },
+            facebook: {
+                type: String,
+                default: ''
+            },
+            twitter: {
+                type: String,
+                default: ''
+            },
+            linkedin: {
+                type: String,
+                default: ''
+            },
+            other: {
+                type: String,
+                default: ''
+            }
         },
-        languagesSpoken: [String]
+        languagesSpoken: {
+            type: [String],
+            default: undefined
+        }
     }
 }, {
     timestamps: true
 });
+
 
 module.exports = mongoose.model('User', userSchema);
