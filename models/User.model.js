@@ -23,10 +23,6 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Complaint'
     }],
-    detailsId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Detail'
-    },
     role: {
         type: String,
         enum: ['user', 'admin'],
