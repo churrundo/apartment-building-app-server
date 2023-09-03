@@ -15,13 +15,15 @@ const pollSchema = new Schema(
     },
     options: [
       {
-        text: {
+        optionText: {
           type: String,
           required: true,
           trim: true,
         },
-        votes: Number,
-        default:0
+        votes:{
+          type:Number,
+          default:0
+        }
       },
     ],
 
