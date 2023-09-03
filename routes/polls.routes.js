@@ -70,21 +70,29 @@ router.put("/:pollId", async (req, res) => {
 });
 
 router.post("/:pollId/vote", async (req, res) => {
-  try {
-    const poll = await Poll.findById(req.params.pollId);
-    if (!poll) {
-      return res.status(404).send({ message: "Poll not found" });
-    }
-    const option = poll.options.find(opt => opt._id.toString() === req.body.optionId);
-    if (!option) {
-      return res.status(404).send({ message: "Option not found" });
-    }
-    option.votes += 1;
-    await poll.save();
-    res.send(poll);
-  } catch (error) {
-    res.status(400).send(error);
+  const { optionId, userId } = req.body;
+  const { pollId } = req.params;
+
+  console.log(userId)
+  const poll = await Poll.findById(pollId);
+  if (!poll) {
+    return res.status(404).send("Poll not found.");
   }
+  
+  if (poll.votedUserIds.includes(userId)) {
+    return res.status(403).send("User has already voted on this poll.");
+  }
+
+  const option = poll.options.find((opt) => opt._id.toString() === optionId);
+  if (!option) {
+    return res.status(404).send("Option not found.");
+  }
+
+  option.votes += 1;
+  poll.votedUserIds.push(userId);
+  await poll.save();
+
+  return res.status(200).json(poll);
 });
 
 router.delete("/:pollId", async (req, res) => {

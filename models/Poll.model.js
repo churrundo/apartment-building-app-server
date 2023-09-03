@@ -27,7 +27,7 @@ const pollSchema = new Schema(
       },
     ],
 
-    voteHashes: [String],
+    votedUserIds: [String],
 
     status: {
       type: String,
