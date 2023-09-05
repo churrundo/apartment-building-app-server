@@ -20,6 +20,7 @@ router.post("/", async (req, res) => {
       title: req.body.title,
       description: req.body.description,
       options: transformedOptions,
+      createdBy: req.body.createdBy,
     };
     const newPoll = new Poll(pollData);
     await newPoll.save();
@@ -73,12 +74,12 @@ router.post("/:pollId/vote", async (req, res) => {
   const { optionId, userId } = req.body;
   const { pollId } = req.params;
 
-  console.log(userId)
+  console.log(userId);
   const poll = await Poll.findById(pollId);
   if (!poll) {
     return res.status(404).send("Poll not found.");
   }
-  
+
   if (poll.votedUserIds.includes(userId)) {
     return res.status(403).send("User has already voted on this poll.");
   }
@@ -90,6 +91,26 @@ router.post("/:pollId/vote", async (req, res) => {
 
   option.votes += 1;
   poll.votedUserIds.push(userId);
+  await poll.save();
+
+  return res.status(200).json(poll);
+});
+
+router.put("/:pollId/close", async (req, res) => {
+  console.log("Request body:", req.body);
+  const { userId } = req.body; // Get userId from frontend
+  const { pollId } = req.params;
+  const poll = await Poll.findById(pollId);
+  console.log("Closing poll with id:", pollId);
+  if (!poll) {
+    return res.status(404).send("Poll not found.");
+  }
+  console.log("poll was created by user:", userId);
+  if (poll.createdBy.toString() !== userId) {
+    return res.status(403).send("User not authorized to close this poll.");
+  }
+
+  poll.status = "Closed";
   await poll.save();
 
   return res.status(200).json(poll);
