@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const Building = require("../models/Building.model")
 
 router.post("/", async (req, res) => {
   try {
