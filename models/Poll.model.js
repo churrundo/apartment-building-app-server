@@ -8,11 +8,13 @@ const pollSchema = new Schema(
       required: true,
       trim: true,
     },
+    
     description: {
       type: String,
       required: true,
       trim: true,
     },
+
     options: [
       {
         optionText: {
@@ -20,16 +22,22 @@ const pollSchema = new Schema(
           required: true,
           trim: true,
         },
-        votes:{
-          type:Number,
-          default:0
-        }
+        votes: {
+          type: Number,
+          default: 0,
+        },
       },
     ],
 
-    createdBy:{
+    buildingId: {
       type: Schema.Types.ObjectId,
-      ref: "User"
+      ref: "Building",
+      required: "true",
+    },
+
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
 
     votedUserIds: [String],
