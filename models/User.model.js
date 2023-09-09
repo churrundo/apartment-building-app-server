@@ -19,10 +19,16 @@ const userSchema = new Schema({
         required: true,
         minlength: 6
     },
-    complaints: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Complaint'
-    }],
+    residence:{
+        building: {
+            type: Schema.Types.ObjectId,
+            ref: 'Building'
+        },
+        apartmentNumber: {
+            type: String,
+            default: ''
+        }
+    },
     role: {
         type: String,
         enum: ['user', 'admin'],
@@ -37,14 +43,10 @@ const userSchema = new Schema({
             type: Boolean,
             default: false
         },
-        apartmentNumber: {
-            type: String,
-            default: ''
-        },
         profilePicture: {
             type: String,
             default: ''
-        }, // Future iteration, implement Cloudinary image upload
+        }, 
         contactNumber: {
             type: String,
             default: ''

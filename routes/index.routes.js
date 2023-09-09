@@ -10,7 +10,7 @@ router.use('/announcements', announcementRoutes);
 const pollRoutes = require('./polls.routes');
 router.use('/polls', pollRoutes);
 
-const complaintsRoutes = require('./complaints.routes');
-router.use('/complaints', complaintsRoutes);
+const buildingsRoutes = require('./buildings.routes');
+router.use('/buildings', buildingsRoutes);
 
 module.exports = router;
