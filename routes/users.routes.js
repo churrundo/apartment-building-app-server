@@ -50,6 +50,25 @@ router.get("/", async(req, res, next) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+
+  router.put("/:userId/updateBuilding/:buildingId", async(req, res) => {
+    const { userId, buildingId } = req.params;
+  
+    try {
+      const user = await User.findById(userId);
+      if (!user) {
+          return res.status(404).json({ error: 'User not found' });
+      }
+  
+      user.residence = { building: buildingId };
+      await user.save();
+  
+      res.status(200).json({ message: 'Building updated for user successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
   
   router.delete("/:id", async (req, res, next) => {    const userId = req.params.id;
     try {
