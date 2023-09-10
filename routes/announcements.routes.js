@@ -6,7 +6,7 @@ const {
     getAnnouncementById,
     updateAnnouncement,
     deleteAnnouncement
-} = require("../controllers/announcement.controller");
+} = require("../controllers/announcements.controller");
 
 router.post("/", createAnnouncement);
 router.get("/", getAllAnnouncements);
