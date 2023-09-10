@@ -8,7 +8,7 @@ const {
     updateUser,
     updateUserBuilding,
     deleteUser
-} = require('./path_to_user.controller');
+} = require('../controllers/users.controller');
 
 router.get("/", getAllUsers);
 
