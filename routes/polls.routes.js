@@ -4,10 +4,15 @@ const Poll = require("../models/Poll.model");
 
 router.get("/", async (req, res) => {
   try {
-    const polls = await Poll.find({ status: "Open" });
-    res.send(polls);
+      const buildingId = req.query.buildingId;
+
+      const filter = buildingId ? { buildingId: buildingId } : {};
+
+      const polls = await Poll.find(filter);
+      res.status(200).json(polls);
   } catch (error) {
-    res.status(500).send(error);
+      console.error(error);
+      res.status(500).json({ error: 'Server error' });
   }
 });
 

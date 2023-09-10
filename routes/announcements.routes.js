@@ -22,19 +22,17 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res, next) => {
+router.get("/", async (req, res) => {
   try {
-    const announcements = await Announcement.find();
+    const filter = req.query.buildingId
+      ? { buildingId: req.query.buildingId }
+      : {};
 
-    if (announcements.length === 0) {
-      return res
-        .status(200)
-        .json({ message: "No announcements found", data: [] });
-    }
-
+    const announcements = await Announcement.find(filter);
     res.status(200).json(announcements);
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
   }
 });
 

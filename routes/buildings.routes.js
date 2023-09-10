@@ -56,79 +56,81 @@ router.get("/:buildingId", async (req, res) => {
   }
 });
 
-router.put("/:buildingId/addUser/:userId", async(req, res) => {
+router.put("/:buildingId/addUser/:userId", async (req, res) => {
   const { buildingId, userId } = req.params;
 
-  console.log('Received request with buildingId:', buildingId);
-  console.log('Received request with userId:', userId);
+  console.log("Received request with buildingId:", buildingId);
+  console.log("Received request with userId:", userId);
 
   try {
     const building = await Building.findById(buildingId);
-    
+
     if (!building) {
-        console.error('Error: Building not found for ID:', buildingId);
-        return res.status(404).json({ error: 'Building not found' });
+      console.error("Error: Building not found for ID:", buildingId);
+      return res.status(404).json({ error: "Building not found" });
     }
 
-    console.log('Found building:', building);
+    console.log("Found building:", building);
 
     if (!building.residents.includes(userId)) {
-        console.log('User not already in building. Adding...');
-        building.residents.push(userId);
-        await building.save();
-        console.log('User added to building successfully');
+      console.log("User not already in building. Adding...");
+      building.residents.push(userId);
+      await building.save();
+      console.log("User added to building successfully");
     } else {
-        console.log('User already in building. Skipping addition.');
+      console.log("User already in building. Skipping addition.");
     }
 
-    res.status(200).json({ message: 'User added to building successfully' });
+    res.status(200).json({ message: "User added to building successfully" });
   } catch (error) {
-    console.error('Server error:', error.message);
-    res.status(500).json({ error: 'Server error' });
+    console.error("Server error:", error.message);
+    res.status(500).json({ error: "Server error" });
   }
 });
 
-// router.put("/:buildingId/addAnnouncement/:announcementId", async(req, res) => {
-//   const { buildingId, announcementId } = req.params;
+router.put("/:buildingId/addAnnouncement/:announcementId", async (req, res) => {
+  const { buildingId, announcementId } = req.params;
 
-//   try {
-//     const building = await Building.findById(buildingId);
-//     if (!building) {
-//         return res.status(404).json({ error: 'Building not found' });
-//     }
+  try {
+    const building = await Building.findById(buildingId);
+    if (!building) {
+      return res.status(404).json({ error: "Building not found" });
+    }
 
-//     if (!building.announcements.includes(announcementId)) {
-//         building.announcements.push(announcementId);
-//         await building.save();
-//     }
+    if (!building.announcements.includes(announcementId)) {
+      building.announcements.push(announcementId);
+      await building.save();
+    }
 
-//     res.status(200).json({ message: 'Announcement added to building successfully' });
-// } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: 'Server error' });
-// }
-// });
+    res
+      .status(200)
+      .json({ message: "Announcement added to building successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 
-// router.put("/:buildingId/addPoll/:PollId", async(req, res) => {
-//   const { buildingId, pollId } = req.params;
+router.put("/:buildingId/addPoll/:PollId", async (req, res) => {
+  const { buildingId, pollId } = req.params;
 
-//   try {
-//     const building = await Building.findById(buildingId);
-//     if (!building) {
-//         return res.status(404).json({ error: 'Building not found' });
-//     }
+  try {
+    const building = await Building.findById(buildingId);
+    if (!building) {
+      return res.status(404).json({ error: "Building not found" });
+    }
 
-//     if (!building.polls.includes(pollId)) {
-//         building.polls.push(pollId);
-//         await building.save();
-//     }
+    if (!building.polls.includes(pollId)) {
+      building.polls.push(pollId);
+      await building.save();
+    }
 
-//     res.status(200).json({ message: 'Poll added to building successfully' });
-// } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: 'Server error' });
-// }
-// });
+    res.status(200).json({ message: "Poll added to building successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 
 router.delete("/:id", (req, res, next) => {
   res.json(`Delete building with ID: ${req.params.id}`);
