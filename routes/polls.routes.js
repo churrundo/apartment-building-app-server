@@ -26,6 +26,7 @@ router.post("/", async (req, res) => {
       description: req.body.description,
       options: transformedOptions,
       createdBy: req.body.createdBy,
+      buildingId: req.body.buildingId
     };
     const newPoll = new Poll(pollData);
     await newPoll.save();
