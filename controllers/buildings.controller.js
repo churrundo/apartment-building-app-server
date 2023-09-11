@@ -2,10 +2,10 @@ const Building = require("../models/Building.model");
 
 exports.createNewBuilding = async (req, res) => {
   try {
-    const { name, address, totalApartments } = req.body;
+    const { address, totalApartments, admin } = req.body;
+    const { name, email, _id } = req.payload;
 
-    // Validation
-    if (!name || !address || !totalApartments) {
+    if ( !address || !totalApartments) {
       return res.status(400).json({ message: "All fields are required." });
     }
 
@@ -17,15 +17,19 @@ exports.createNewBuilding = async (req, res) => {
     }
 
     const building = new Building({
-      name,
       address,
       totalApartments,
+      admin,
+      residents: [admin],
     });
 
-    await building.save();
+    const savedBuilding = await building.save(); // Capture the saved building
     res
       .status(201)
-      .json({ message: "Building created successfully!", building });
+      .json({
+        message: "Building created successfully!",
+        building: savedBuilding,
+      });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -67,7 +71,7 @@ exports.addUserToBuilding = async (req, res) => {
       building.residents.push(userId);
       await building.save();
     }
-    
+
     res.status(200).json({ message: "User added to building successfully" });
   } catch (error) {
     console.error(error);
