@@ -1,0 +1,21 @@
+[
+    {
+      "address": "123 Main St, City, Country",
+      "totalApartments": 10,
+      "admin": "user1",
+      "residents": ["user1", "user2"],
+      "announcements": ["announcement1", "announcement2"],
+      "polls": ["poll1"],
+      "createdAt": "2023-09-13T10:00:00.000Z"
+    },
+    {
+      "address": "456 Second Ave, City, Country",
+      "totalApartments": 15,
+      "admin": "user3",
+      "residents": ["user3", "user4"],
+      "announcements": ["announcement3"],
+      "polls": [],
+      "createdAt": "2023-09-14T11:00:00.000Z"
+    }
+  ]
+  

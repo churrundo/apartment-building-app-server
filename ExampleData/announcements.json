@@ -1,0 +1,11 @@
+[
+    {
+      "title": "Maintenance Notice",
+      "message": "The lift will be under maintenance from 2PM to 4PM.",
+      "userId": "user1",
+      "buildingId": "building1",
+      "createdAt": "2023-09-13T12:00:00.000Z",
+      "updatedAt": "2023-09-13T12:30:00.000Z"
+    }
+  ]
+  

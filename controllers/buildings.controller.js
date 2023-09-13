@@ -5,7 +5,7 @@ exports.createNewBuilding = async (req, res) => {
     const { address, totalApartments, admin } = req.body;
     const { name, email, _id } = req.payload;
 
-    if ( !address || !totalApartments) {
+    if (!address || !totalApartments) {
       return res.status(400).json({ message: "All fields are required." });
     }
 
@@ -24,15 +24,34 @@ exports.createNewBuilding = async (req, res) => {
     });
 
     const savedBuilding = await building.save(); // Capture the saved building
-    res
-      .status(201)
-      .json({
-        message: "Building created successfully!",
-        building: savedBuilding,
-      });
+    res.status(201).json({
+      message: "Building created successfully!",
+      building: savedBuilding,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
+  }
+};
+
+exports.getResidents = async (req, res, next) => {
+  const buildingId = req.params.buildingId;
+  try {
+    const building = await Building.findById(buildingId).populate({
+      path: "residents",
+      match: { "details.makeAvailable": true },
+    });
+    if (!building) {
+      return res.status(404).json({ error: "Building not found" });
+    }
+    res.json(building.residents);
+    console.log(building.residents)
+  } catch (error) {
+    console.error(
+      `Error retrieving residents for building with ID: ${buildingId}`,
+      error
+    );
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
