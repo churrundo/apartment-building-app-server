@@ -107,7 +107,7 @@ const userSchema = new Schema({
         },
         specialSkills: {
             type: [String],
-            default: undefined
+            default: []
         },
         socialMediaLinks: {
             instagram: {
@@ -133,7 +133,7 @@ const userSchema = new Schema({
         },
         languagesSpoken: {
             type: [String],
-            default: undefined
+            default: []
         }
     }
 }, {
