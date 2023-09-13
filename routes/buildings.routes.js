@@ -3,6 +3,7 @@ const router = express.Router();
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 const {
   createNewBuilding,
+  getResidents,
   getBuildingByAddress,
   getBuildingById,
   addUserToBuilding,
@@ -11,6 +12,7 @@ const {
 } = require("../controllers/buildings.controller");
 
 router.post("/",isAuthenticated, createNewBuilding );
+router.get("/:buildingId/directory", getResidents)
 router.get("/", getBuildingByAddress);
 router.get("/:buildingId", getBuildingById);
 router.put("/:buildingId/addUser/:userId",addUserToBuilding);
