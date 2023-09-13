@@ -1,0 +1,177 @@
+[
+  {
+    "name": "Alice",
+    "email": "alice@email.com",
+    "password": "password123",
+    "residence": {
+      "building": "building1",
+      "apartmentNumber": "A1"
+    },
+    "role": "admin",
+    "announcements": ["announcement1"],
+    "details": {
+      "makeAvailable": true,
+      "profilePicture": "/path/to/image1.jpg",
+      "contactNumber": "123-456-7890",
+      "occupation": "Software Developer",
+      "shortBio": "I love coding.",
+      "moveInDate": "2023-09-01T10:00:00.000Z",
+      "emergencyContact": {
+        "name": "Bob",
+        "phone": "987-654-3210"
+      },
+      "pets": [
+        {
+          "type": "Dog",
+          "name": "Rex"
+        }
+      ],
+      "vehicleDetails": {
+        "type": "Car",
+        "make": "Toyota",
+        "model": "Camry",
+        "color": "Blue",
+        "licensePlate": "XYZ-1234"
+      },
+      "specialSkills": ["Guitar", "Cooking"],
+      "socialMediaLinks": {
+        "instagram": "@alice",
+        "facebook": "facebook.com/alice",
+        "twitter": "@alice",
+        "linkedin": "linkedin.com/in/alice",
+        "other": "alice.com"
+      },
+      "languagesSpoken": ["English", "Spanish"]
+    }
+  },
+  {
+    "name": "Charlie",
+    "email": "charlie@email.com",
+    "password": "password123",
+    "residence": {
+      "building": "building2",
+      "apartmentNumber": "B1"
+    },
+    "role": "admin",
+    "announcements": ["announcement3"],
+    "details": {
+      "makeAvailable": true,
+      "profilePicture": "/path/to/image3.jpg",
+      "contactNumber": "321-456-7890",
+      "occupation": "Graphic Designer",
+      "shortBio": "Passionate about design.",
+      "moveInDate": "2023-08-10T09:00:00.000Z",
+      "emergencyContact": {
+        "name": "Dana",
+        "phone": "654-321-9870"
+      },
+      "pets": [
+        {
+          "type": "Cat",
+          "name": "Whiskers"
+        }
+      ],
+      "vehicleDetails": {
+        "type": "Motorcycle",
+        "make": "Honda",
+        "model": "Rebel",
+        "color": "Black",
+        "licensePlate": "ABC-5678"
+      },
+      "specialSkills": ["Painting", "Singing"],
+      "socialMediaLinks": {
+        "instagram": "@charlie",
+        "facebook": "facebook.com/charlie",
+        "twitter": "@charlie_d",
+        "linkedin": "linkedin.com/in/charlie",
+        "other": "charliedesigns.com"
+      },
+      "languagesSpoken": ["English", "French"]
+    }
+  },
+  {
+    "name": "Eva",
+    "email": "eva@email.com",
+    "password": "password456",
+    "residence": {
+      "building": "building2",
+      "apartmentNumber": "B2"
+    },
+    "role": "user",
+    "announcements": [],
+    "details": {
+      "makeAvailable": false,
+      "profilePicture": "/path/to/image4.jpg",
+      "contactNumber": "432-765-1234",
+      "occupation": "Teacher",
+      "shortBio": "Teaching the future generation.",
+      "moveInDate": "2023-07-01T10:00:00.000Z",
+      "emergencyContact": {
+        "name": "Frank",
+        "phone": "765-432-1098"
+      },
+      "pets": [],
+      "vehicleDetails": {
+        "type": "Car",
+        "make": "Ford",
+        "model": "Fiesta",
+        "color": "White",
+        "licensePlate": "DEF-9012"
+      },
+      "specialSkills": ["Writing", "Public Speaking"],
+      "socialMediaLinks": {
+        "instagram": "@eva_teaches",
+        "facebook": "facebook.com/eva",
+        "twitter": "@eva",
+        "linkedin": "linkedin.com/in/eva",
+        "other": "eva.com"
+      },
+      "languagesSpoken": ["English"]
+    }
+  },
+  {
+    "name": "George",
+    "email": "george@email.com",
+    "password": "password789",
+    "residence": {
+      "building": "building1",
+      "apartmentNumber": "A3"
+    },
+    "role": "user",
+    "announcements": [],
+    "details": {
+      "makeAvailable": true,
+      "profilePicture": "/path/to/image5.jpg",
+      "contactNumber": "567-890-1234",
+      "occupation": "Chef",
+      "shortBio": "Cooking up a storm.",
+      "moveInDate": "2023-06-05T11:00:00.000Z",
+      "emergencyContact": {
+        "name": "Helen",
+        "phone": "890-123-4567"
+      },
+      "pets": [
+        {
+          "type": "Fish",
+          "name": "Goldie"
+        }
+      ],
+      "vehicleDetails": {
+        "type": "Car",
+        "make": "Mazda",
+        "model": "3",
+        "color": "Red",
+        "licensePlate": "GHI-3456"
+      },
+      "specialSkills": ["Cooking", "Gardening"],
+      "socialMediaLinks": {
+        "instagram": "@chef_george",
+        "facebook": "facebook.com/george",
+        "twitter": "@george_chef",
+        "linkedin": "linkedin.com/in/george",
+        "other": "chefgeorge.com"
+      },
+      "languagesSpoken": ["English", "Italian"]
+    }
+  }
+]
