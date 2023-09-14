@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const pollSchema = new Schema(
+const PollSchema = new Schema(
   {
     title: {
       type: String,
@@ -56,4 +56,6 @@ const pollSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model("Poll", pollSchema);
+const Poll = mongoose.model("Poll", PollSchema);
+
+module.exports = Poll;

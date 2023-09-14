@@ -16,6 +16,6 @@ router.get("/:pollId", getPollById);
 router.put("/:pollId", updatePoll);
 router.post("/:pollId/vote", voteOnPoll);
 router.put("/:pollId/close", closePoll);
-router.delete("/:pollId", deletePoll);
+router.delete("/:pollId/:userId", deletePoll);
 
 module.exports = router;

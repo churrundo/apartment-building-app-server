@@ -1,4 +1,5 @@
 const Poll = require("../models/Poll.model");
+const Building = require("../models/Building.model");
 
 exports.getAllPolls = async (req, res) => {
   try {
@@ -8,7 +9,7 @@ exports.getAllPolls = async (req, res) => {
     res.status(200).json(polls);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -22,7 +23,7 @@ exports.createPoll = async (req, res) => {
       description: req.body.description,
       options: transformedOptions,
       createdBy: req.body.createdBy,
-      buildingId: req.body.buildingId
+      buildingId: req.body.buildingId,
     };
     const newPoll = new Poll(pollData);
     await newPoll.save();
@@ -120,11 +121,35 @@ exports.closePoll = async (req, res) => {
 
 exports.deletePoll = async (req, res) => {
   try {
-    const poll = await Poll.findByIdAndDelete(req.params.pollId);
-    if (!poll) {
-      return res.status(404).send();
+    const { userId, pollId } = req.params;
+
+    if (!pollId) {
+      return res.status(404).json({ message: "Poll not found." });
     }
-    res.send(poll);
+
+    const poll = await Poll.findOne({ _id: pollId });
+    console.log("poll: ", poll);
+    if (poll.createdBy.toString() !== userId) {
+      return res
+        .status(403)
+        .json({ message: "User not authorized to delete this poll." });
+    }
+    const building = await Building.findOne({ polls: poll._id });
+
+    if (building) {
+      // Remove the poll ID from the building's polls array
+      building.polls.pull(poll._id);
+      await building.save();
+    }
+    try {
+      await Poll.deleteOne({ _id: pollId });
+      res.json({ message: `Successfully deleted poll: ${pollId}` });
+    } catch (err) {
+      console.error("Error removing poll:", err.message);
+      return res
+        .status(500)
+        .json({ message: "Error removing poll.", error: err.message });
+    }
   } catch (error) {
     res.status(500).send(error);
   }
