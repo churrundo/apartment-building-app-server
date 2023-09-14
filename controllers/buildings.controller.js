@@ -1,5 +1,6 @@
 const Building = require("../models/Building.model");
-const User = require("../models/User.model")
+const User = require("../models/User.model");
+const {generateToken} = require("../utils/tokenUtil");
 
 exports.createNewBuilding = async (req, res) => {
   try {
@@ -46,7 +47,7 @@ exports.getResidents = async (req, res, next) => {
       return res.status(404).json({ error: "Building not found" });
     }
     res.json(building.residents);
-    console.log(building.residents)
+    console.log(building.residents);
   } catch (error) {
     console.error(
       `Error retrieving residents for building with ID: ${buildingId}`,
@@ -79,36 +80,39 @@ exports.getBuildingById = async (req, res) => {
 
 exports.addUserToBuilding = async (req, res) => {
   try {
-      const buildingId = req.params.buildingId;
-      const userId = req.params.userId;
+    const buildingId = req.params.buildingId;
+    const userId = req.params.userId;
 
-      // Find the building and push the user's ID to its residents array
-      const building = await Building.findByIdAndUpdate(buildingId, {
-          $push: { residents: userId }
-      }, { new: true });
+    const building = await Building.findByIdAndUpdate(
+      buildingId,
+      {
+        $push: { residents: userId },
+      },
+      { new: true }
+    );
 
-      if (!building) {
-          return res.status(404).json({ message: "Building not found." });
-      }
+    if (!building) {
+      return res.status(404).json({ message: "Building not found." });
+    }
 
-      // Update the user's residence.building field with the building ID
-      const user = await User.findByIdAndUpdate(userId, {
-          "residence.building": buildingId
-      }, { new: true });
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        "residence.building": buildingId,
+      },
+      { new: true }
+    );
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    };
 
-      if (!user) {
-          return res.status(404).json({ message: "User not found." });
-      }
-
-      // Send a success response (you can customize this as needed)
-      res.status(200).json({ message: "User successfully added to building.", building, user });
-
+    const authToken = generateToken(user)
+    res.status(200).json({ authToken });
   } catch (error) {
-      console.error("Error adding user to building:", error);
-      res.status(500).json({ message: "Internal server error." });
+    console.error("Error adding user to building:", error);
+    res.status(500).json({ message: "Internal server error." });
   }
 };
-
 
 exports.addAnnouncementToBuilding = async (req, res) => {
   const { buildingId, announcementId } = req.params;
