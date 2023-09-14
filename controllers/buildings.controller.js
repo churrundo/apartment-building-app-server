@@ -1,4 +1,6 @@
 const Building = require("../models/Building.model");
+const User = require("../models/User.model");
+const {generateToken} = require("../utils/tokenUtil");
 
 exports.createNewBuilding = async (req, res) => {
   try {
@@ -45,7 +47,7 @@ exports.getResidents = async (req, res, next) => {
       return res.status(404).json({ error: "Building not found" });
     }
     res.json(building.residents);
-    console.log(building.residents)
+    console.log(building.residents);
   } catch (error) {
     console.error(
       `Error retrieving residents for building with ID: ${buildingId}`,
@@ -77,24 +79,38 @@ exports.getBuildingById = async (req, res) => {
 };
 
 exports.addUserToBuilding = async (req, res) => {
-  const { buildingId, userId } = req.params;
-
   try {
-    const building = await Building.findById(buildingId);
+    const buildingId = req.params.buildingId;
+    const userId = req.params.userId;
+
+    const building = await Building.findByIdAndUpdate(
+      buildingId,
+      {
+        $push: { residents: userId },
+      },
+      { new: true }
+    );
 
     if (!building) {
-      return res.status(404).json({ error: "Building not found" });
+      return res.status(404).json({ message: "Building not found." });
     }
 
-    if (!building.residents.includes(userId)) {
-      building.residents.push(userId);
-      await building.save();
-    }
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        "residence.building": buildingId,
+      },
+      { new: true }
+    );
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    };
 
-    res.status(200).json({ message: "User added to building successfully" });
+    const authToken = generateToken(user)
+    res.status(200).json({ authToken });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Server error" });
+    console.error("Error adding user to building:", error);
+    res.status(500).json({ message: "Internal server error." });
   }
 };
 
