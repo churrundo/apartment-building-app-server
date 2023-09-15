@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
     getAllPolls,
+    getPollsByBuilding,
     createPoll,
     getPollById,
     updatePoll,
@@ -11,6 +12,7 @@ const {
 } = require("../controllers/polls.controller");
 
 router.get("/", getAllPolls);
+router.get("/building/:buildingId", getPollsByBuilding)
 router.post("/", createPoll);
 router.get("/:pollId", getPollById);
 router.put("/:pollId", updatePoll);

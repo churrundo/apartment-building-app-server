@@ -22,10 +22,9 @@ exports.createNewBuilding = async (req, res) => {
       address,
       totalApartments,
       admin,
-      residents: [admin],
     });
 
-    const savedBuilding = await building.save(); // Capture the saved building
+    const savedBuilding = await building.save();
     res.status(201).json({
       message: "Building created successfully!",
       building: savedBuilding,

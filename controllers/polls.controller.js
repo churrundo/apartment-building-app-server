@@ -3,11 +3,19 @@ const Building = require("../models/Building.model");
 
 exports.getAllPolls = async (req, res) => {
   try {
-    const buildingId = req.query.buildingId;
-    const filter = buildingId ? { buildingId: buildingId } : {};
-    const polls = await Poll.find(filter);
+    const polls = await Poll.find();
     res.status(200).json(polls);
   } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+exports.getPollsByBuilding = (req, res) => {
+  try{
+    const polls = Poll.find({"buildingId": req.params.buildingId});
+    res.status(200).json(polls);
+  }catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error" });
   }
