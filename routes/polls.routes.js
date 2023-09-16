@@ -12,7 +12,6 @@ const {
 } = require("../controllers/polls.controller");
 
 router.get("/", getAllPolls);
-router.get("/building/:buildingId", getPollsByBuilding)
 router.post("/", createPoll);
 router.get("/:pollId", getPollById);
 router.put("/:pollId", updatePoll);

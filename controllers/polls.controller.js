@@ -3,7 +3,10 @@ const Building = require("../models/Building.model");
 
 exports.getAllPolls = async (req, res) => {
   try {
-    const polls = await Poll.find();
+    const filter = req.query.buildingId
+      ? { buildingId: req.query.buildingId }
+      : {};
+    const polls = await Poll.find(filter);
     res.status(200).json(polls);
   } catch (error) {
     console.error(error);
