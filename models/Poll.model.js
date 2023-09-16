@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const pollSchema = new Schema(
+const PollSchema = new Schema(
   {
     title: {
       type: String,
@@ -40,7 +40,10 @@ const pollSchema = new Schema(
       ref: "User",
     },
 
-    votedUserIds: [String],
+    votedUserIds: [{
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }],
 
     status: {
       type: String,
@@ -53,4 +56,6 @@ const pollSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model("Poll", pollSchema);
+const Poll = mongoose.model("Poll", PollSchema);
+
+module.exports = Poll;
